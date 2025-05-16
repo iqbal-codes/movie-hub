@@ -71,6 +71,7 @@ export const useMovies = (initialParams?: SearchParams): UseMoviesReturn => {
   // Initial fetch
   useEffect(() => {
     fetchMovies(searchParams, true);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadMore = useCallback(() => {
