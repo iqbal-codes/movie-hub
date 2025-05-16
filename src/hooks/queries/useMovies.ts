@@ -72,7 +72,7 @@ export const useMovies = (initialParams?: SearchParams): UseMoviesReturn => {
   useEffect(() => {
     fetchMovies(searchParams, true);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+}, []);
 
   const loadMore = useCallback(() => {
     if (!loading && hasMore) {

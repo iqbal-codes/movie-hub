@@ -7,9 +7,9 @@ import {
 } from "../types/movie";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_TMDB_API_BASE_URL,
+  baseURL: process.env.VITE_TMDB_API_BASE_URL,
   params: {
-    api_key: import.meta.env.VITE_TMDB_API_KEY,
+    api_key: process.env.VITE_TMDB_API_KEY,
   },
 });
 
@@ -131,3 +131,4 @@ export const getConfiguration = async () => {
 };
 
 export default api;
+export {}; // Ensure this file is treated as a module
