@@ -37,7 +37,7 @@ const MovieListPage: React.FC = () => {
   const { movies, loading, error, hasMore, totalResults, loadMore, search } =
     useMovies(filters);
 
-  const { genres, loading: genresLoading } = useGenres();
+  const { genres = [], loading: genresLoading } = useGenres();
 
   useEffect(() => {
     search?.(filters);
