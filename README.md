@@ -48,6 +48,10 @@ The project follows Atomic Design principles:
 
 This project uses the TMDB API for movie data. You'll need to register for an API key at [themoviedb.org](https://www.themoviedb.org/documentation/api).
 
+## Hosted Deployment
+
+You can access the live version of MovieHub at [movie-hub.iqbal-devs.xyz](https://movie-hub.iqbal-devs.xyz).
+
 ## License
 
 MIT

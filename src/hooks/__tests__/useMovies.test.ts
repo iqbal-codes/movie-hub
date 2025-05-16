@@ -1,36 +1,36 @@
-import { renderHook, waitFor } from "@testing-library/react";
-import MockAdapter from "axios-mock-adapter";
-import { useMovies } from "../queries/useMovies";
-import api from "../../services/api";
+import { renderHook, waitFor } from '@testing-library/react';
+import axios from 'axios';
+import { useMovies } from '../queries/useMovies';
 
-// Create a new instance of MockAdapter
-const mock = new MockAdapter(api);
+jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-describe("useMovies", () => {
+describe('useMovies', () => {
   afterEach(() => {
     jest.resetAllMocks();
   });
 
-  it("should fetch and return movies", async () => {
-    const mockMovies = [{ id: 1, title: "Inception" }];
-    mock.onGet("/discover/movie").reply(200, { results: mockMovies });
+  it('should fetch and return movies', async () => {
+    const mockMovies = [{ id: 1, title: 'Inception' }];
+    mockedAxios.get.mockResolvedValueOnce({ data: { results: mockMovies } });
 
     const { result } = renderHook(() => useMovies());
 
     await waitFor(() => expect(result.current.loading).toBe(false));
 
+    expect(mockedAxios.get).toHaveBeenCalledWith('/movie/popular');
     expect(result.current.movies).toEqual(mockMovies);
     expect(result.current.error).toBeNull();
   });
 
-  it("should handle error if request fails", async () => {
-    mock.onGet("/discover/movie").networkError();
+  it('should handle error if request fails', async () => {
+    mockedAxios.get.mockRejectedValueOnce(new Error('Network Error'));
 
     const { result } = renderHook(() => useMovies());
 
     await waitFor(() => expect(result.current.loading).toBe(false));
 
     expect(result.current.movies).toEqual([]);
-    expect(result.current.error?.message).toBe("Network Error");
+    expect(result.current.error?.message).toBe('Network Error');
   });
 });
